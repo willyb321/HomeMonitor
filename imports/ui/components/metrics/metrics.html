@@ -13,8 +13,21 @@
 </section>
 </body>
 <template name="metrics">
-	<pre id="uptime">{{uptime}}</pre>
-	<pre id="load">{{cpus}}</pre>
-	<pre id="load">{{memory}}</pre>
-	<pre id="load">{{net}}</pre>
+	<div class="columns">
+		<div class="column">
+			<pre id="uptime">{{uptime}}</pre>
+			<pre id="load">{{cpus}}</pre>
+			<pre id="load">{{memory}}</pre>
+			<pre id="load">{{net}}</pre>
+		</div>
+		<div class="column" style="max-height: 300px; overflow: scroll;">
+			{{#each logs}}
+				{{> log}}
+			{{/each}}
+		</div>
+	</div>
+</template>
+
+<template name="log">
+	<p>{{message}}</p>
 </template>

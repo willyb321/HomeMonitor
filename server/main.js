@@ -4,6 +4,20 @@ import '/imports/startup/server';
 import '/imports/startup/both';
 import { Meteor } from 'meteor/meteor';
 import si from 'systeminformation';
+import {Tail} from 'tail';
+import {Metrics} from "../imports/api/links/links";
+
+const tail = new Tail("/var/log/messages.log");
+
+Tracker.autorun(function () {
+	tail.on("line", Meteor.bindEnvironment(data => {
+		console.log(data);
+		Metrics.insert({message: data}, (err, data) => {
+			console.log(err);
+			console.log(data);
+		})
+	}));
+});
 
 Meteor.methods({
 	async metrics() {
@@ -43,4 +57,8 @@ Meteor.methods({
 	}
 });
 
-Meteor.publish('metrics');
+Meteor.publish('Metrics', function () {
+	return Metrics.find({}, {
+	});
+});
+

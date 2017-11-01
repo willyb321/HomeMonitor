@@ -2,7 +2,10 @@ import './metrics.html';
 import {Session} from 'meteor/session'
 import {moment} from 'meteor/momentjs:moment';
 import bytes from 'bytes';
-
+import {Metrics} from "../../../api/links/links";
+Tracker.autorun(() => {
+	Meteor.subscribe('Metrics')
+});
 Template.metrics.onCreated(function helloOnCreated() {
 	Meteor.call('metrics', (err, data) => {
 		Session.set('metrics', data);
@@ -43,6 +46,10 @@ Template.metrics.helpers({
 		toReturn.push(`Total RX: ${bytes.format(data.net.rx)} on ${data.net.iface}`);
 		toReturn.push(`Total TX: ${bytes.format(data.net.tx)} on ${data.net.iface}`);
 		return toReturn.join('\n');
+	},
+	logs() {
+		console.log(Metrics.findOne());
+		return Metrics.find({}, { sort: { _id: -1 }});
 	}
 });
 
