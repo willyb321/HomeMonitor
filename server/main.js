@@ -8,6 +8,7 @@ import si from 'systeminformation';
 Meteor.methods({
 	async metrics() {
 		try {
+			const staticInfo = await si.getStaticData();
 			const cpuInfo = await si.cpu();
 			const cpuTemp = await si.cpuTemperature();
 			const load = await si.currentLoad();
@@ -16,6 +17,7 @@ Meteor.methods({
 			const graphics = await si.graphics();
 			const net = await si.networkStats();
 			const os = await si.osInfo();
+			console.log(staticInfo);
 			console.log(cpuInfo);
 			console.log(cpuTemp);
 			console.log(load);
@@ -25,6 +27,7 @@ Meteor.methods({
 			console.log(net);
 			console.log(os);
 			return {
+				staticInfo,
 				cpuInfo,
 				cpuTemp,
 				load,

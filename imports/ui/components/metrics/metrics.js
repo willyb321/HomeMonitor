@@ -28,8 +28,12 @@ Template.metrics.helpers({
 		if (!data) return;
 		const toReturn = [];
 		toReturn.push(`CPU Info: ${data.cpuInfo.manufacturer} ${data.cpuInfo.brand} @ ${data.cpuInfo.speed}GHz`);
-		toReturn.push(`CPU Temp: ${data.cpuTemp.max}\u00B0C max`);
-		toReturn.push(`Load Info: ${data.load.avgload} average`);
+		if (data.cpuTemp.max !== -1) {
+			toReturn.push(`CPU Temp: ${data.cpuTemp.max}\u00B0C max`);
+		}
+		if (data.load.avgload !== 0) {
+			toReturn.push(`Load Info: ${data.load.avgload} average`);
+		}
 		return toReturn.join('\n');
 	},
 	net() {
