@@ -3,8 +3,7 @@
 import '/imports/startup/server';
 import '/imports/startup/both';
 import { Meteor } from 'meteor/meteor';
-import os from 'os';
-const si = require('systeminformation');
+import si from 'systeminformation';
 
 Meteor.methods({
 	async metrics() {
@@ -14,17 +13,26 @@ Meteor.methods({
 			const load = await si.currentLoad();
 			const time = await si.time();
 			const mem = await si.mem();
+			const graphics = await si.graphics();
+			const net = await si.networkStats();
+			const os = await si.osInfo();
 			console.log(cpuInfo);
 			console.log(cpuTemp);
 			console.log(load);
 			console.log(time);
 			console.log(mem);
+			console.log(graphics);
+			console.log(net);
+			console.log(os);
 			return {
 				cpuInfo,
 				cpuTemp,
 				load,
 				time,
-				mem
+				mem,
+				graphics,
+				net,
+				os
 			};
 		} catch (e) {
 			console.log(e)

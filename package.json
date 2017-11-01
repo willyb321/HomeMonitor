@@ -10,5 +10,9 @@
     "meteor-node-stubs": "^0.3.2",
     "metrics-os": "^1.0.1",
     "systeminformation": "^3.32.1"
+  },
+  "devDependencies": {
+    "@types/bytes": "^2.5.1",
+    "@types/systeminformation": "^3.23.0"
   }
 }

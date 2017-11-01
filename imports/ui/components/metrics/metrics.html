@@ -1,11 +1,20 @@
+<body>
+<section class="hero is-medium is-primary is-bold">
+	<div class="hero-body">
+		<div class="container">
+			<h1 class="title">
+				HomeMonitor
+			</h1>
+			<h2 class="subtitle">
+				It actually monitors a computer but yeah
+			</h2>
+		</div>
+	</div>
+</section>
+</body>
 <template name="metrics">
-	<pre id="uptime">{{> metrics2}}</pre>
-</template>
-
-<template name="metrics2">
-	<pre id="uptime">Uptime: {{uptime}}</pre>
-	<pre id="cpuUsage">{{cpuUsage}}</pre>
-	<pre id="load">1M Load: {{oneload}}</pre>
+	<pre id="uptime">{{uptime}}</pre>
 	<pre id="load">{{cpus}}</pre>
 	<pre id="load">{{memory}}</pre>
+	<pre id="load">{{net}}</pre>
 </template>
