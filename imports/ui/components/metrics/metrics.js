@@ -48,7 +48,6 @@ Template.metrics.helpers({
 		return toReturn.join('\n');
 	},
 	logs() {
-		console.log(Metrics.findOne());
 		return Metrics.find({}, { sort: { _id: -1 }});
 	}
 });

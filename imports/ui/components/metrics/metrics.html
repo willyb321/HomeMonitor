@@ -13,19 +13,23 @@
 </section>
 </body>
 <template name="metrics">
-	<div class="columns">
-		<div class="column">
-			<pre id="uptime">{{uptime}}</pre>
-			<pre id="load">{{cpus}}</pre>
-			<pre id="load">{{memory}}</pre>
-			<pre id="load">{{net}}</pre>
-		</div>
-		<div class="column" style="max-height: 300px; overflow: scroll;">
-			{{#each logs}}
-				{{> log}}
-			{{/each}}
+	<section class="section">
+	<div class="container is-fluid">
+		<div class="columns">
+			<div class="column" style="max-height: 352px; max-width: 50%; overflow: auto;">
+				<pre id="uptime">{{uptime}}</pre>
+				<pre id="load">{{cpus}}</pre>
+				<pre id="load">{{memory}}</pre>
+				<pre id="load">{{net}}</pre>
+			</div>
+			<div class="column" style="max-height: 352px; max-width: 50%; overflow: auto;">
+				{{#each logs}}
+					{{> log}}
+				{{/each}}
+			</div>
 		</div>
 	</div>
+	</section>
 </template>
 
 <template name="log">
