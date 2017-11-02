@@ -7,7 +7,6 @@ const getMetrics = require('metrics-os');
 
 Meteor.startup(() => {
   // if the Links collection is empty
-	Metrics.insert(getMetrics())
   if (Metrics.find().count() === 0) {
 
   }

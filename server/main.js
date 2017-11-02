@@ -10,11 +10,10 @@ import {Metrics} from "../imports/api/links/links";
 const tail = new Tail("/var/log/messages.log");
 
 Tracker.autorun(function () {
-	tail.on("line", Meteor.bindEnvironment(data => {
+	tail.on('line', Meteor.bindEnvironment(data => {
 		console.log(data);
-		Metrics.insert({message: data}, (err, data) => {
-			console.log(err);
-			console.log(data);
+		Metrics.insert({message: data, timestamp: new Date()}, err => {
+			if (err) console.log(err);
 		})
 	}));
 });

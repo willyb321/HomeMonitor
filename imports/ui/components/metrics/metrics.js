@@ -4,7 +4,7 @@ import {moment} from 'meteor/momentjs:moment';
 import bytes from 'bytes';
 import {Metrics} from "../../../api/links/links";
 Tracker.autorun(() => {
-	Meteor.subscribe('Metrics')
+	Meteor.subscribe('Metrics');
 });
 Template.metrics.onCreated(function helloOnCreated() {
 	Meteor.call('metrics', (err, data) => {
@@ -24,7 +24,15 @@ Template.metrics.helpers({
 		const toReturn = [];
 		toReturn.push(`Memory Total: ${bytes.format(data.mem.total)}`);
 		toReturn.push(`Memory Free: ${bytes.format(data.mem.free)}`);
+		toReturn.push(`Memory Active: ${bytes.format(data.mem.active)}`);
+		toReturn.push(`Swap Total: ${bytes.format(data.mem.swaptotal)}`);
+		toReturn.push(`Swap Free: ${bytes.format(data.mem.swapfree)}`);
 		return toReturn.join('\n');
+	},
+	sysTime() {
+		const data = Session.get('metrics');
+		if (!data) return;
+		return `System time on ${data.os.hostname} (${data.os.distro} ${data.os.platform}): ${moment(data.time.current).format('dddd, MMMM Do YYYY, h:mm:ss a')}`;
 	},
 	cpus() {
 		const data = Session.get('metrics');
@@ -48,7 +56,8 @@ Template.metrics.helpers({
 		return toReturn.join('\n');
 	},
 	logs() {
-		return Metrics.find({}, { sort: { _id: -1 }});
+		Session.set('logs', Metrics.find({}, { sort: { timestamp: -1 }, limit: 25}).fetch());
+		return Session.get('logs');
 	}
 });
 
